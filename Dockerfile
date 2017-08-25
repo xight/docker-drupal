@@ -139,6 +139,9 @@ RUN /etc/init.d/mysql start && \
 	drush si -y standard --db-url=mysql://drupal:drupal@localhost/drupal --account-pass=admin --locale=ja && \
 	drush en -y locale language && \
 	drush dl drush_language && \
+	drush en -y migrate migrate_drupal migrate_drupal_ui && \
+	drush dl migrate_plus migrate_tools && \
+	drush en -y migrate_plus migrate_tools && \
 	drush dl admin_menu devel && \
 	# In order to enable Simpletest, we need to download PHPUnit.
 	composer install --dev && \
