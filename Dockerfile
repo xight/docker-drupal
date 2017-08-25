@@ -130,10 +130,15 @@ RUN mkdir -p /var/www/sites/default/files && \
 	cp /var/www/sites/default/default.services.yml /var/www/sites/default/services.yml && \
 	chmod 0664 /var/www/sites/default/settings.php && \
 	chmod 0664 /var/www/sites/default/services.yml && \
+	mkdir /var/www/sites/default/files/translations -p && \
+	cd /var/www/sites/default/files/translations && \
+	curl -O -L http://ftp.drupal.org/files/translations/8.x/drupal/drupal-$DRUPAL_VERSION.ja.po && \
 	chown -R www-data:www-data /var/www/
 RUN /etc/init.d/mysql start && \
 	cd /var/www && \
-	drush si -y standard --db-url=mysql://drupal:drupal@localhost/drupal --account-pass=admin && \
+	drush si -y standard --db-url=mysql://drupal:drupal@localhost/drupal --account-pass=admin --locale=ja && \
+	drush en -y locale language && \
+	drush dl drush_language && \
 	drush dl admin_menu devel && \
 	# In order to enable Simpletest, we need to download PHPUnit.
 	composer install --dev && \
