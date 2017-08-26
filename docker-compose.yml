@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+    drupal:
+        container_name: docker-drupal-ja
+        build: ./containers/docker-drupal
+        volumes:
+            - drupal-db-data:/var/lib/mysql
+            - ${DOCKER_VOLUME_ROOT}/repos/drupal/modules:/var/www/sites/all/modules/custom
+            - ${DOCKER_VOLUME_ROOT}/repos/drupal/themes:/var/www/sites/all/themes
+            - ${DOCKER_VOLUME_ROOT}/repos/drupal/archive-dump:/root/drush-backups/archive-dump
+        ports:
+            - "10080:80"
+            - "10022:22"
+            - "10443:443"
+            - "13306:3306"
+
+volumes:
+    drupal-db-data: {}
