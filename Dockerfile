@@ -140,8 +140,12 @@ RUN /etc/init.d/mysql start && \
 	drush en -y locale language && \
 	drush dl drush_language && \
 	drush en -y migrate migrate_drupal migrate_drupal_ui && \
-	drush dl migrate_plus migrate_tools && \
-	drush en -y migrate_plus migrate_tools && \
+	drush dl migrate_plus migrate_tools migrate_source_csv && \
+	drush en -y migrate_plus migrate_tools migrate_source_csv && \
+	drush dl config_devel && \
+	drush en -y config_devel && \
+	drush dl config_partial_export && \
+	drush en -y config_partial_export && \
 	drush dl admin_menu devel && \
 	# In order to enable Simpletest, we need to download PHPUnit.
 	composer install --dev && \
